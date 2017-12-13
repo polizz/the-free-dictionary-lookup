@@ -1,0 +1,72 @@
+{
+  "name": "the-free-dictionary-lookup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist publish",
+    "prebuild": "npm run clean",
+    "predev": "npm run clean",
+    "dev": "BABEL_ENV=dev webpack",
+    "build": "BABEL_ENV=production webpack",
+    "postbuild": "npm-run-all copy:* && npm-run-all publish:*",
+    "postdev": "npm-run-all copy:*",
+    "lint": "web-ext lint --source-dir ./dist/mozilla/ && web-ext lint --source-dir ./dist/chrome/",
+    "copy:make": "mkdir -p ./dist/chrome && mkdir -p ./dist/mozilla",
+    "copy:dupe": "cp -R dist/src dist/chrome/src && cp -R dist/src dist/mozilla/src && rm -rf dist/src",
+    "copy:manifest": "echo BUILDING MANIFEST && babel-node buildManifest.js",
+    "copy:assets": "cp -R previews/ dist/chrome && cp -R icons dist/chrome/icons && cp -R previews/ dist/mozilla && cp -R icons dist/mozilla/icons",
+    "publish:mozilla": "web-ext build --s dist/mozilla -a publish/mozilla",
+    "publish:chrome": "web-ext build -s dist/chrome -a publish/chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polizz/the-free-dictionary.git"
+  },
+  "author": "polizz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/polizz/the-free-dictionary/issues"
+  },
+  "homepage": "https://github.com/polizz/the-free-dictionary#readme",
+  "devDependencies": {
+    "@polizz/eslint-config-polizz": "github:polizz/eslint-config-polizz",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^4.3.0",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "npm-run-all": "^4.1.2",
+    "web-ext": "^2.2.2",
+    "webpack": "^3.10.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@polizz/eslint-config-polizz"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "experimentalObjectRestSpread": true
+    },
+    "env": {
+      "browser": true
+    },
+    "globals": {
+      "browser": true,
+      "chrome": true,
+      "msBrowser": true
+    }
+  },
+  "dependencies": {}
+}
