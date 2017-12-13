@@ -8,19 +8,19 @@
     <!-- Extension name displayed in Add-on Manager -->
     <em:name>TheFreeDictionary.com Lookup</em:name>
     <!-- Extension version number. There is a version numbering scheme you must follow -->
-    <em:version>0.3</em:version>
+    <em:version>0.4</em:version>
     <!-- Brief description displayed in Add-on Manager -->
     <em:description>Adds context menu to lookup selected words on www.thefreedictionary.com</em:description>
     <!-- Name of extension's primary developer. Change to your name -->
     <em:creator>polizz</em:creator>
     <!-- Web page address through which extension is distributed -->
-    <em:homepageURL>https://github.com/polizz/the-free-dictionary</em:homepageURL>
+    <em:homepageURL>http://www.herpderp.org/tfdlookup/</em:homepageURL>
     <!-- This section gives details of the target application for the extension (in this case: Firefox 2) -->
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>10.*</em:maxVersion>
+        <em:maxVersion>35.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>

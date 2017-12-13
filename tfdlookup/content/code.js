@@ -23,8 +23,9 @@ if (!com.polizz.tfdlookup) com.polizz.tfdlookup = {};
           show.hidden = (selectedtext == ""); 
         } ,
         
-        SearchTFD : function() {    
-           gBrowser.addTab("http://thefreedictionary.com/" + content.getSelection());  
+        SearchTFD : function() {
+           var tab = gBrowser.addTab("http://thefreedictionary.com/" + content.getSelection(), {relatedToCurrent: true});
+           gBrowser.selectedTab = tab
         }
     };
 
