@@ -1,5 +1,14 @@
-const menuItemTemplate = `Search TFD.com for`
-let menuId = "tfdLookupMenuitem"
+const menuItemTemplate = 'Search TFD.com for'
+const tfdUrl = 'http://thefreedictionary.com/'
+const menuId = 'tfdLookupMenuitem'
+
+const getActiveTab = () => {
+  browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  })
+    .then(tabs => tabs[0])
+}
 
 browser.tabs.onActivated.addListener(({ tabId }) => {
   browser.tabs.sendMessage(tabId, {
@@ -20,13 +29,22 @@ browser.runtime.onMessage.addListener(({ selection }, _, resp) => {
   resp(true)
 })
 
-const onClickHandler = args => {
-  console.log(`open new tab for ${args.selectedtext}`)
+const onClickHandler = ({ selectedtext: word }) => {
+  console.log(`open new tab for ${word}`)
+
+  const idx = getActiveTab().index
+
+  browser.tabs.create({
+    active: true,
+    url: `${tfdUrl}${word}`,
+    index: idx,
+  })
+    .catch(err => console.log(`could not create tab: ${err}`))
 }
 
 browser.menus.create({
   id: menuId,
-  contexts: ["selection"],
+  contexts: ['selection'],
   onclick: onClickHandler,
 })
 
