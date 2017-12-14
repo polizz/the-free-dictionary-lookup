@@ -1,2 +1,0 @@
-content tfdlookup content/
-overlay chrome://browser/content/browser.xul chrome://tfdlookup/content/overlay.xul

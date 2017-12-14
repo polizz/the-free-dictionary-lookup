@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<overlay id="tfdLookupOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-   <script type="application/x-javascript" src="chrome://tfdlookup/content/code.js" />
-  <popup id="contentAreaContextMenu">
-    <menuitem id="tfdLookupMenuitem" label="Search TFD.com for " insertbefore="context-searchselect" oncommand=" com.polizz.tfdlookup.SearchTFD(); "/>
-  </popup>
-</overlay>

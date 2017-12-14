@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "TheFreeDictionary.com Lookup",
+  "version": "2.0",
+  "description": "Adds context menu to lookup selected words on www.thefreedictionary.com.",
+  "icons": {
+    "48": "icons/icon.ico"
+  },
+  "background":{
+      "scripts": ["src/index.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["src/contextHandler.js"]
+    }
+  ],
+  "permissions": ["menus", "tabs"],
+  "applications": {
+    "gecko": {
+      "id": "tfd-addon@polizz.us",
+      "strict_min_version": "42.0"
+    }
+  }
+}
