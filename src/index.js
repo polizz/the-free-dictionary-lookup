@@ -3,11 +3,16 @@ const tfdUrl = 'http://thefreedictionary.com/'
 const menuId = 'tfdLookupMenuitem'
 
 const getActiveTab = () => {
-  browser.tabs.query({
+  return browser.tabs.query({
     active: true,
     currentWindow: true,
   })
-    .then(tabs => tabs[0])
+    .then(tabs => {
+      console.log('tabs', tabs)
+
+      return tabs[0]
+    })
+    .catch(err => console.log('error', err))
 }
 
 browser.tabs.onActivated.addListener(({ tabId }) => {
@@ -29,17 +34,21 @@ browser.runtime.onMessage.addListener(({ selection }, _, resp) => {
   resp(true)
 })
 
-const onClickHandler = ({ selectedtext: word }) => {
+const onClickHandler = ({ selectionText: word }) => {
   console.log(`open new tab for ${word}`)
 
-  const idx = getActiveTab().index
+  getActiveTab()
+    .then(tab => {
+      console.log('idx', tab.index)
 
-  browser.tabs.create({
-    active: true,
-    url: `${tfdUrl}${word}`,
-    index: idx,
-  })
-    .catch(err => console.log(`could not create tab: ${err}`))
+      browser.tabs.create({
+        active: true,
+        url: `${tfdUrl}${word}`,
+        index: tab.index + 1,
+      })
+        .then(tab => console.log('new tab', tab))
+        .catch(err => console.log(`could not create tab: ${err}`))
+    })
 }
 
 browser.menus.create({
@@ -47,37 +56,3 @@ browser.menus.create({
   contexts: ['selection'],
   onclick: onClickHandler,
 })
-
-
-// if (!com) var com = {};
-// if (!com.polizz) com.polizz = {};
-// if (!com.polizz.tfdlookup) com.polizz.tfdlookup = {};
-    
-//  com.polizz.tfdlookup = {
-
-//         onLoad : function() {
-//             com.polizz.tfdlookup.init();
-//         },
-        
-//         init : function ()  {
-//             var contextMenu = document.getElementById("contentAreaContextMenu"); 
-            
-//             if (contextMenu)  
-//                 contextMenu.addEventListener("popupshowing", function() { com.polizz.tfdlookup.showHideMenu(); }, false);  
-//         } ,
-          
-//         showHideMenu : function ()  {
-//           var show = document.getElementById("tfdLookupMenuitem"); 
-//           var selectedtext = content.getSelection();
-          
-//           show.label = 'Search TFD.com for "' + selectedtext + '"';
-//           show.hidden = (selectedtext == ""); 
-//         } ,
-        
-//         SearchTFD : function() {
-//            var tab = gBrowser.addTab("http://thefreedictionary.com/" + content.getSelection(), {relatedToCurrent: true});
-//            gBrowser.selectedTab = tab
-//         }
-//     };
-
-// window.addEventListener("load", function() { com.polizz.tfdlookup.onLoad(); }, false);
