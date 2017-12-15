@@ -27,7 +27,7 @@ browser.tabs.onActivated.addListener(({ tabId }) => {
 
 browser.runtime.onMessage.addListener(({ selection }, _, resp) => {
   browser.menus.update(menuId, {
-    title: `${menuItemTemplate} ${selection}`,
+    title: `${menuItemTemplate} "${selection}"`,
   })
     .then(err => {
       // if (err) console.log('Error updating context menu')

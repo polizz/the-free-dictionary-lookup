@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "BABEL_ENV=PRODUCTION babel -s true -d dist/src src",
-    "postbuild": "npm run copy",
+    "prebuild": "rm -rf dist *.zip",
+    "dev": "BABEL_ENV=PRODUCTION babel -s true -d dist/src src",
+    "build": "BABEL_ENV=PRODUCTION babel -d dist/src src",
+    "postbuild": "npm run copy && npm run publish",
+    "publish": "web-ext build --source-dir ./dist/",
+    "lint": "web-ext lint --source-dir ./dist/",
     "copy": "cp manifest.json *.png dist && cp -R icons dist/icons"
   },
   "repository": {
@@ -31,7 +34,8 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-react": "^7.5.1",
+    "web-ext": "^2.2.2"
   },
   "babel": {
     "plugins": [
