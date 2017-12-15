@@ -15,7 +15,7 @@
   "permissions": ["menus", "tabs"],
   "applications": {
     "gecko": {
-      "id": "tfd-addon@polizz.us",
+      "id": "{47F7DAA8-DB46-4FE2-87B0-C6D7C8DD2F23}",
       "strict_min_version": "42.0"
     }
   }
