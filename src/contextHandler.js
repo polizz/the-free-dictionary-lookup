@@ -1,5 +1,6 @@
 const updateMenu = () => {
   const verbiage = window.getSelection().toString()
+
   browser.runtime.sendMessage({ selection: verbiage })
 }
 

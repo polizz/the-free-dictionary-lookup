@@ -2,6 +2,8 @@ const menuItemTemplate = 'Search TFD.com for'
 const tfdUrl = 'http://thefreedictionary.com/'
 const menuId = 'tfdLookupMenuitem'
 
+console.log(browser)
+
 const getActiveTab = () => {
   return browser.tabs.query({
     active: true,
@@ -38,13 +40,13 @@ const onClickHandler = ({ selectionText: word }) => {
   console.log(`open new tab for ${word}`)
 
   getActiveTab()
-    .then(tab => {
-      console.log('idx', tab.index)
+    .then(activeTab => {
+      console.log('idx', activeTab.index)
 
       browser.tabs.create({
         active: true,
         url: `${tfdUrl}${word}`,
-        index: tab.index + 1,
+        index: activeTab.index + 1,
       })
         .then(tab => console.log('new tab', tab))
         .catch(err => console.log(`could not create tab: ${err}`))
@@ -53,6 +55,6 @@ const onClickHandler = ({ selectionText: word }) => {
 
 browser.menus.create({
   id: menuId,
-  contexts: ['selection'],
+  contexts: [ 'selection' ],
   onclick: onClickHandler,
 })

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "BABEL_ENV=PRODUCTION babel -s true -d dist/src src",
+    "postbuild": "npm run copy",
+    "copy": "cp manifest.json *.png dist && cp -R icons dist/icons"
   },
   "repository": {
     "type": "git",
@@ -18,13 +20,32 @@
   "homepage": "https://github.com/polizz/the-free-dictionary#readme",
   "devDependencies": {
     "@polizz/eslint-config-polizz": "github:polizz/eslint-config-polizz",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.2.0",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1"
+  },
+  "babel": {
+    "presets": [
+      ["env",
+        {
+          "targets": {
+            "browsers": [
+              "last 3 versions"
+            ]
+          },
+          "modules": false,
+          "debug": true
+        }
+      ],
+      "minify"
+    ]
   },
   "eslintConfig": {
     "extends": [
