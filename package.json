@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "BABEL_ENV=PRODUCTION babel -s true -d dist/src src",
     "postbuild": "npm run copy",
     "copy": "cp manifest.json *.png dist && cp -R icons dist/icons"
