@@ -1,15 +1,21 @@
-const updateMenu = () => {
-  const verbiage = window.getSelection().toString()
+import browser from './browser'
 
-  browser.runtime.sendMessage({ selection: verbiage })
+const ctx = () => {
+  const updateMenu = () => {
+    const verbiage = window.getSelection().toString()
+
+    browser.runtime.sendMessage('', { selection: verbiage })
+  }
+
+  browser.runtime.onMessage.addListener(({ sync }, _, resp) => {
+    if (sync) {
+      updateMenu()
+      resp(true)
+    }
+    resp(false)
+  })
+
+  window.addEventListener('mouseup', updateMenu)
 }
 
-browser.runtime.onMessage.addListener(({ sync }, _, resp) => {
-  if (sync) {
-    updateMenu()
-    resp(true)
-  }
-  resp(false)
-})
-
-window.addEventListener('mouseup', updateMenu)
+export default ctx()

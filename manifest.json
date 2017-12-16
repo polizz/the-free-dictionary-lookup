@@ -8,11 +8,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["src/contextHandler.js"]
     }
   ],
-  "permissions": ["menus", "tabs"],
+  "permissions": ["contextMenus", "tabs"],
   "applications": {
     "gecko": {
       "id": "{47F7DAA8-DB46-4FE2-87B0-C6D7C8DD2F23}",
