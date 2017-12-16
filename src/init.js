@@ -24,8 +24,8 @@ const setup = () => {
     console.log('onActivated.addListener', 'tabId', tabId)
 
     browser.tabs.sendMessage(tabId, { sync: true })
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err))
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   })
   
   browser.runtime.onMessage.addListener(({ selection }, _, resp) => {

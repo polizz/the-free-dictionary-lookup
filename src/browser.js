@@ -1,12 +1,3 @@
-const crSendMsgHandler = resp => {
-  return new Promise((res, rej) => {
-    console.log('crSendMsgHandler', resp)
-
-    return resp ? res(resp) :
-      rej(chrome.runtime.lastError)
-  })
-}
-
 const getBrowser = () => {
   if (chrome) {
     return {
@@ -16,8 +7,11 @@ const getBrowser = () => {
         query: queryInfo => new Promise(res => {
           chrome.tabs.query(queryInfo, arr => res(arr))
         }),
-        sendMessage: (tabId, msg) =>
-          chrome.tabs.sendMessage(tabId, msg, null, crSendMsgHandler),
+        sendMessage: (tabId, msg) => {
+          chrome.tabs.sendMessage(tabId, msg)
+
+          return Promise.resolve()
+        },
         create: createProps => new Promise(res =>
           chrome.tabs.create(createProps, resp => res(resp))),
       },
