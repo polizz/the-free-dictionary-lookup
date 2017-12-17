@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "TheFreeDictionary.com Lookup",
-  "version": "2.0",
+  "version": "2.0.1",
   "description": "Adds context menu to lookup selected words on www.thefreedictionary.com.",
   "background":{
       "scripts": ["src/index.js"]
