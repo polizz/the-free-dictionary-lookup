@@ -11,11 +11,11 @@
     "build": "BABEL_ENV=production webpack",
     "postbuild": "npm-run-all copy:* && npm-run-all publish:*",
     "postdev": "npm-run-all copy:*",
-    "lint": "web-ext lint --source-dir ./dist/",
+    "lint": "web-ext lint --source-dir ./dist/mozilla/ && web-ext lint --source-dir ./dist/chrome/",
     "copy:make": "mkdir -p ./dist/chrome && mkdir -p ./dist/mozilla",
     "copy:dupe": "cp -R dist/src dist/chrome/src && cp -R dist/src dist/mozilla/src && rm -rf dist/src",
-    "copy:manifest": "echo BUILDING MANIFEST",
-    "copy:assets": "cp *.png dist/chrome && cp -R icons dist/chrome/icons && cp *.png dist/mozilla && cp -R icons dist/mozilla/icons",
+    "copy:manifest": "echo BUILDING MANIFEST && babel-node buildManifest.js",
+    "copy:assets": "cp previews/ dist/chrome && cp -R icons dist/chrome/icons && cp previews/ dist/mozilla && cp -R icons dist/mozilla/icons",
     "publish:mozilla": "web-ext build --s dist/mozilla -a publish/mozilla",
     "publish:chrome": "web-ext build -s dist/chrome -a publish/chrome"
   },
@@ -31,6 +31,7 @@
   "homepage": "https://github.com/polizz/the-free-dictionary#readme",
   "devDependencies": {
     "@polizz/eslint-config-polizz": "github:polizz/eslint-config-polizz",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-minify-webpack-plugin": "^0.2.0",
