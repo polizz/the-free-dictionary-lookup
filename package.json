@@ -15,7 +15,7 @@
     "copy:make": "mkdir -p ./dist/chrome && mkdir -p ./dist/mozilla",
     "copy:dupe": "cp -R dist/src dist/chrome/src && cp -R dist/src dist/mozilla/src && rm -rf dist/src",
     "copy:manifest": "echo BUILDING MANIFEST && babel-node buildManifest.js",
-    "copy:assets": "cp previews/ dist/chrome && cp -R icons dist/chrome/icons && cp previews/ dist/mozilla && cp -R icons dist/mozilla/icons",
+    "copy:assets": "cp -R previews/ dist/chrome && cp -R icons dist/chrome/icons && cp -R previews/ dist/mozilla && cp -R icons dist/mozilla/icons",
     "publish:mozilla": "web-ext build --s dist/mozilla -a publish/mozilla",
     "publish:chrome": "web-ext build -s dist/chrome -a publish/chrome"
   },
