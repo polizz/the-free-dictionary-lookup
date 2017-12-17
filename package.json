@@ -4,15 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rm -rf dist *.zip web-ext-artifacts",
-    "predev": "rm -rf dist",
+    "clean": "rm -rf dist publish",
+    "prebuild": "npm run clean",
+    "predev": "npm run clean",
     "dev": "BABEL_ENV=dev webpack",
     "build": "BABEL_ENV=production webpack",
-    "postbuild": "npm run copy && npm run publish",
-    "postdev": "npm run copy",
-    "publish": "web-ext build --source-dir ./dist/",
+    "postbuild": "npm-run-all copy:* && npm-run-all publish:*",
+    "postdev": "npm-run-all copy:*",
     "lint": "web-ext lint --source-dir ./dist/",
-    "copy": "cp manifest.json *.png dist && cp -R icons dist/icons"
+    "copy:make": "mkdir -p ./dist/chrome && mkdir -p ./dist/mozilla",
+    "copy:dupe": "cp -R dist/src dist/chrome/src && cp -R dist/src dist/mozilla/src && rm -rf dist/src",
+    "copy:manifest": "echo BUILDING MANIFEST",
+    "copy:assets": "cp *.png dist/chrome && cp -R icons dist/chrome/icons && cp *.png dist/mozilla && cp -R icons dist/mozilla/icons",
+    "publish:mozilla": "web-ext build --s dist/mozilla -a publish/mozilla",
+    "publish:chrome": "web-ext build -s dist/chrome -a publish/chrome"
   },
   "repository": {
     "type": "git",
@@ -39,6 +44,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
+    "npm-run-all": "^4.1.2",
     "web-ext": "^2.2.2",
     "webpack": "^3.10.0"
   },
